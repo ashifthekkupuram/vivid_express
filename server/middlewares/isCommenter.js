@@ -1,27 +1,27 @@
-import Blog from '../models/blog.model.js'
+import Comment from '../models/comment.model.js'
 
-const isAuthor = async (req, res, next) => {
+const isCommenter = async (req, res, next) => {
     try{
 
-        const { blogId } = req.params
+        const { commentId } = req.params
 
-        if(!blogId){
+        if(!commentId){
             return res.status(400).json({
                 success: false,
-                message: 'Blog ID required'
+                message: 'Comment ID required'
             })
         }
 
-        const blog = await Blog.findById(blogId)
+        const comment = await Comment.findById(commentId)
 
-        if(!blog){
+        if(!comment){
             return res.status(400).json({
                 success: false,
-                message: 'Blog not found'
+                message: 'Comment not found'
             })
         }
 
-        if(blog.author.toString() === req.user.toString()){
+        if(comment.author.toString() === req.user.toString()){
             next()
         }else{
             return res.status(400).json({
@@ -39,4 +39,4 @@ const isAuthor = async (req, res, next) => {
     }
 }
 
-export default isAuthor
+export default isCommenter
