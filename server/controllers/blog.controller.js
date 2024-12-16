@@ -157,3 +157,53 @@ export const delete_blog = async (req, res, next) => {
         })
     }
 }
+
+export const like = async (req, res, next) => {
+    try{
+
+        const { blogId } = req.params
+
+        if(!blogId){
+            return res.status(400).json({
+                success: false,
+                message: 'Blog ID required'
+            })
+        }
+
+        const blog = await Blog.findById(blogId)
+
+        if(!blog){
+            return res.status(400).json({
+                success: false,
+                message: 'Blog not found'
+            })
+        }
+
+        if(blog.likes.includes(req.user)){
+            blog.likes.pull(req.user)
+            await blog.save()
+
+            return res.json({
+                success: true,
+                message: 'Liked',
+                liked: false
+            })
+        }else{
+            blog.likes.push(req.user)
+            await blog.save()
+
+            return res.json({
+                success: true,
+                message: 'Liked',
+                liked: true
+            })
+        }
+
+    } catch(err) {
+        return res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+            error: err
+        })
+    }
+}
