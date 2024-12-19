@@ -59,7 +59,7 @@ export const get_blog = async (req, res, next) => {
 export const create_blog = async (req, res, next) => {
     try{
 
-        const { title, content } = req.body
+        const { title, content, categories } = req.body
 
         if(!title || !title.length >= 10){
             return res.status(400).json({
@@ -78,6 +78,7 @@ export const create_blog = async (req, res, next) => {
         const blog = new Blog({
             title,
             content,
+            categories: categories || [],
             author: req.user
         })
 
