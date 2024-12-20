@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.primary-btn {
+    @apply bg-primary text-white p-2 text-xs font-medium rounded-md transition-all;
+}
+
+.primary-btn:hover {
+    @apply bg-[#111b38];
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import useAuth from '../state/useAuth'
 import axios from '../api/axios'
@@ -11,24 +11,17 @@ const useRefresh = () => {
 
     const refresh = async () => {
         setLoading(true)
-        setError(null)
         try{
-            const response = axios.post('/refresh')
-            setError(null)
+            const response = await axios.post('/auth/refresh')
             setAuth(response.data)
         } catch(err) {
-            
             setAuth()
         } finally {
             setLoading(false)
         }
     }
 
-    useEffect(() => {
-        refresh()
-    },[])
-
-    return [ loading ]
+    return [ loading, refresh ]
 }
 
 export default useRefresh

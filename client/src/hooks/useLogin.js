@@ -25,7 +25,7 @@ const useLogin = () => {
         }
     }
 
-    return { loading, error, login }
+    return [ loading, error, login ]
 }
 
 export default useLogin
