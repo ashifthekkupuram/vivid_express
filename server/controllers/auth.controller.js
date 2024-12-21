@@ -151,7 +151,7 @@ export const refresh = async (req, res, next) => {
         const cookies =  req.cookies
 
         if(!cookies?.jwt){
-            return json.status(403).json({
+            return json.status(401).json({
                 success: false,
                 message: 'Unauthorized'
             })
@@ -163,7 +163,7 @@ export const refresh = async (req, res, next) => {
             if(err){
                 return res.status(403).json({
                     success: false,
-                    message: 'Forbidden',
+                    message: 'Session Expired',
                 })
             }
 

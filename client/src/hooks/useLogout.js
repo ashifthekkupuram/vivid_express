@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import useAuth from '../state/useAuth'
 import axios from '../api/axios'
@@ -14,6 +15,7 @@ const useLogout = () => {
         try{
             await axios.post('/auth/logout')
             setAuth()
+            toast.success('Logged out')
         } catch(err) {
             
         } finally {

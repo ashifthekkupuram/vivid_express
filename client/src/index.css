@@ -9,3 +9,7 @@
 .primary-btn:hover {
     @apply bg-[#111b38];
 }
+
+.primary-btn:disabled {
+    @apply opacity-50 bg-primary
+}

@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 
-import useLogin from '../hooks/useLogin'
+import useRegister from '../hooks/useRegister'
 
-const Login = () => {
+const Register = () => {
 
     const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [secondName, setSecondName] = useState('')
     const [password, setPassword] = useState('')
 
-    const [loading, error, login] = useLogin()
+    const [loading, error, register] = useRegister()
 
-    const disabled = loading || !email || !password
+    const disabled = loading || !email || !firstName || !secondName || !password
 
     const onSubmit = (e) => {
         e.preventDefault()
-        login(email, password)
+        register(email, firstName, secondName, password)
     }
 
     return (
@@ -25,6 +27,18 @@ const Login = () => {
                     </label>
                     <input value={email} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${error && 'border-error'}`} id="email" type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
                 </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+                        First Name
+                    </label>
+                    <input value={firstName} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${error && 'border-error'}`} id="firstName" type="text" placeholder="First name" onChange={(e) => setFirstName(e.target.value)} />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="secondName">
+                        Second Name
+                    </label>
+                    <input value={secondName} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${error && 'border-error'}`} id="secondName" type="text" placeholder="Second name" onChange={(e) => setSecondName(e.target.value)} />
+                </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                         Password
@@ -34,10 +48,10 @@ const Login = () => {
                 </div>
                 <div className="flex items-center justify-between">
                     <button disabled={disabled} className="primary-btn" type="submit">
-                        Login
+                        Register
                     </button>
-                    <a className="inline-block align-baseline font-bold text-xs text-primary hover:text-[#111b38]" href="#">
-                        Forgot password?
+                    <a className="inline-block align-baseline font-bold text-xs text-primary ml-4 hover:text-[#111b38]" href="./register">
+                        Already have an account?
                     </a>
                 </div>
             </form>
@@ -45,4 +59,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register

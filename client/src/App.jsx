@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import AuthWrapper from './components/AuthWrapper'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Home from './pages/Home'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
@@ -23,8 +24,12 @@ function App() {
         children: [
           {
             path: '/login',
-            element: < Login />
-          }
+            element: <Login />
+          },
+          {
+            path: '/register',
+            element: <Register />
+          },
         ]
       },
     ]

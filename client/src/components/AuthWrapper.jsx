@@ -1,5 +1,6 @@
 import React,{ useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 
 import NavBar from './NavBar'
 import useRefresh from '../hooks/useRefresh'
@@ -16,6 +17,7 @@ const AuthWrapper = () => {
     <div className='flex flex-col'>
       <NavBar />
       <Outlet />
+      <Toaster position='top-right' />
     </div>
   )
 }

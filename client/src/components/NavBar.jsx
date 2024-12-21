@@ -22,7 +22,7 @@ const NavBar = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='flex sticky justify-between items-center bg-secondary w-full h-14 py-2 px-2 md:px-8'>
+    <div className='flex fixed justify-between items-center bg-secondary w-full h-14 py-2 px-2 md:px-8'>
       <h1 className='text-primary text-lg font-bold italic tracking-wide'>VIVID EXPRESS</h1>
       <div className='hidden md:flex items-center gap-2'>
         <NavALink text='Home' onClick={() => navigate('/')} />
@@ -41,7 +41,7 @@ const NavBar = () => {
           <h1 className='hidden md:block text-primary text-sm font-medium capitalize transition-all hover:text-[#111b38]'>{UserData?.name?.firstName} {UserData?.name?.secondName}</h1>
         </div> : <>
           <button className='hidden primary-btn md:block' onClick={() => navigate('/login')}>Login</button>
-          <button className='hidden primary-btn md:block'>Register</button>
+          <button className='hidden primary-btn md:block' onClick={() => navigate('/register')}>Register</button>
         </>}
         <RiMenu3Fill className='text-3xl text-primary font-bold hover:text-[#111b38] hover:cursor-pointer md:hidden' onClick={() => setMenu(prev => !prev)} />
         {menu &&
@@ -59,7 +59,7 @@ const NavBar = () => {
                 <h1 className='text-primary text-xs font-medium capitalize transition-all hover:text-[#111b38]'>{UserData?.name?.firstName} {UserData?.name?.secondName}</h1>
               </div> : <>
                 <button className='primary-btn' onClick={() => navigate('/login')}>Login</button>
-                <button className='primary-btn'>Register</button>
+                <button className='primary-btn' onClick={() => navigate('/register')}>Register</button>
               </>}
             </div>
           </div>}
