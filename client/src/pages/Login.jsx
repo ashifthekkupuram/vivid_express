@@ -7,7 +7,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const {loading, error, login} = useLogin()
+    const [loading, error, login] = useLogin()
 
     return (
         <div className='flex flex-col'>

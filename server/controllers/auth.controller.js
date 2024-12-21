@@ -204,10 +204,13 @@ export const refresh = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
     try{
-        return res.json({
-            success: true,
-            message: 'Logout API...'
-        })
+        const cookies = req.cookies
+
+        if (!cookies?.jwt) return res.sendStatus(204)
+
+        res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: 'None' })
+
+        res.json({ success: true, message: 'Logged out' })
     } catch(err) {
         return res.status(400).json({
             success: false,

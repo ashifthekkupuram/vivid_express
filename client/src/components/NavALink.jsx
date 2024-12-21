@@ -1,10 +1,10 @@
 import React from 'react'
 
-const NavALink = ({ text, href }) => {
+const NavALink = ({ text, onClick }) => {
   return (
-    <a className='text-md text-primary font-medium transition-all hover:text-lg hover:text-[#111b38]' href={href}>
+    <div className='text-md text-primary font-medium transition-all hover:text-lg hover:text-[#111b38] hover:cursor-pointer' onClick={onClick}>
       { text }
-    </a>
+    </div>
   )
 }
 
