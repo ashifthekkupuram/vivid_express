@@ -13,3 +13,19 @@
 .primary-btn:disabled {
     @apply opacity-50 bg-primary
 }
+
+.category {
+    @apply flex justify-center items-center px-2 py-1 bg-white-variant rounded-xl text-black text-xs font-medium border border-black cursor-pointer select-none transition-all
+}
+
+.category:hover {
+    @apply cursor-pointer bg-[#F5F5F5]
+}
+
+.selected-category {
+    @apply flex justify-center items-center px-2 py-1 bg-[#808080] rounded-xl text-white text-xs font-medium border border-primary cursor-pointer select-none transition-all
+}
+
+.selected-category:hover {
+    @apply cursor-pointer bg-[#696969]
+}

@@ -22,7 +22,7 @@ const NavBar = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='flex fixed justify-between items-center bg-secondary w-full h-14 py-2 px-2 md:px-8'>
+    <div className='flex sticky justify-between items-center bg-secondary w-full h-14 py-2 px-2 md:px-8'>
       <h1 className='text-primary text-lg font-bold italic tracking-wide'>VIVID EXPRESS</h1>
       <div className='hidden md:flex items-center gap-2'>
         <NavALink text='Home' onClick={() => navigate('/')} />
@@ -45,7 +45,7 @@ const NavBar = () => {
         </>}
         <RiMenu3Fill className='text-3xl text-primary font-bold hover:text-[#111b38] hover:cursor-pointer md:hidden' onClick={() => setMenu(prev => !prev)} />
         {menu &&
-          <div className='flex flex-col gap-1 absolute top-12 right-6 bg-secondary-variant p-2 rounded-md border-primary md:hidden'>
+          <div className='flex flex-col gap-1 absolute top-12 right-6 bg-secondary-variant p-2 rounded-md border border-primary md:hidden'>
             <NavLink text='Home' onClick={() => navigate('/')} />
             <NavLink text='Write' onClick={() => navigate('/')} />
             <NavLink text='About' onClick={() => navigate('/')} />

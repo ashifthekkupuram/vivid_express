@@ -17,6 +17,7 @@ export default {
       // 'background': '#7D6167',
       'error': '#e63946',
       'white': '#FFFFFF',
+      'white-variant': '#F4F5FA',
       'black': '#000000'
     }
   },

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import useRegister from '../hooks/useRegister'
 
@@ -11,6 +12,8 @@ const Register = () => {
 
     const [loading, error, register] = useRegister()
 
+    const navigate = useNavigate()
+
     const disabled = loading || !email || !firstName || !secondName || !password
 
     const onSubmit = (e) => {
@@ -19,7 +22,7 @@ const Register = () => {
     }
 
     return (
-        <div className='flex justify-center items-center w-full min-h-screen bg-secondary-variant'>
+        <div className='flex justify-center items-center w-full h-full bg-secondary-variant'>
             <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' onSubmit={onSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
@@ -50,7 +53,7 @@ const Register = () => {
                     <button disabled={disabled} className="primary-btn" type="submit">
                         Register
                     </button>
-                    <a className="inline-block align-baseline font-bold text-xs text-primary ml-4 hover:text-[#111b38]" href="./register">
+                    <a className="inline-block align-baseline font-bold text-xs text-primary ml-4 hover:text-[#111b38] hover:cursor-pointer" onClick={() => navigate('/login')}>
                         Already have an account?
                     </a>
                 </div>

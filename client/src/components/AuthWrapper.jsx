@@ -14,7 +14,7 @@ const AuthWrapper = () => {
   },[])
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col h-screen'>
       <NavBar />
       <Outlet />
       <Toaster position='top-right' />
