@@ -9,6 +9,7 @@ import AuthRouter from './routes/auth.route.js'
 import BlogRouter from './routes/blog.route.js'
 import CommentRouter from './routes/comment.route.js'
 import UserRouter from './routes/user.route.js'
+import CategoryRouter from './routes/category.route.js'
 
 dotenv.config()
 
@@ -32,6 +33,7 @@ app.use('/api/auth', AuthRouter)
 app.use('/api/blog', BlogRouter)
 app.use('/api/comment', CommentRouter)
 app.use('/api/user', UserRouter)
+app.use('/api/category', CategoryRouter)
 
 app.listen(PORT, () => {
     ConnectDatabase().then(()=>{
