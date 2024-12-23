@@ -5,7 +5,8 @@ const useBlogFilter = create((set) => {
         categories: [],
         userId: '',
         search: '',
-        setSearch: (search) => set({ search, })
+        setSearch: (search) => set({ search, }),
+        addRemoveCategory: (categoryId) => set((state) => ({ categories: state.categories.includes(categoryId) ? state.categories.filter((cat) => cat !== categoryId) : [...state.categories, categoryId] })) 
     }
 })
 

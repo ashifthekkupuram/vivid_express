@@ -1,12 +1,32 @@
 import React from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 import useBlogFilter from '../state/useBlogFilter'
 import Category from '../components/Category'
+import Blog from '../components/Blog'
+
+import axios from '../api/axios'
 
 const Home = () => {
 
   const search = useBlogFilter((state) => state.search)
   const setSearch = useBlogFilter((state) => state.setSearch)
+
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const response = await axios.get('/category')
+      return response.data.categories
+    }
+  })
+
+  const { data: blogs } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: async () => {
+      const response = await axios.get('/blog')
+      return response.data.blogs
+    }
+  })
 
   return (
     <div className='flex flex-col gap-2 p-2 md:px-32 w-full h-full bg-secondary-variant'>
@@ -16,18 +36,11 @@ const Home = () => {
       </div>
       {/* Category Section */}
       <div className='flex justify-start items-center gap-2 p-2 bg-white rounded-2xl overflow-hidden'>
-        <Category category='Lifestyle' />
-        <Category category='Fitness' />
-        <Category category='Geography' />
-        <Category category='Musics' />
-        <Category category='Musics' />
-        <Category category='Musics' />
-        <Category category='Musics' />
-        <Category category='Musics' />
+        { categories && categories.map((cat) => <Category category={cat} />) }
       </div>
       {/* Blog Section */}
       <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-hidden'>
-
+        { blogs && blogs.map((blog) => <Blog blog={blog} />) }
       </div>
     </div>
   )
