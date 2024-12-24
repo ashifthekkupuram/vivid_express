@@ -61,14 +61,14 @@ export const create_blog = async (req, res, next) => {
 
         const { title, content, categories } = req.body
 
-        if(!title || !title.length >= 10){
+        if(!title || title.length < 10){
             return res.status(400).json({
                 success: false,
                 message: 'Title must be 10 characters'
             })
         }
 
-        if(!content || !content.length >= 100){
+        if(!content || content.length < 100){
             return res.status(400).json({
                 success: false,
                 message: 'Content must be 100 characters'
@@ -93,9 +93,12 @@ export const create_blog = async (req, res, next) => {
         })
 
     } catch(err) {
+
+        console.log(err)
+
         return res.status(400).json({
             success: false,
-            message: 'Something went wrong',
+            message: 'Something went wrongg',
             error: err
         })
     }

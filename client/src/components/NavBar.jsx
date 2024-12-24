@@ -27,7 +27,7 @@ const NavBar = () => {
       <div className='hidden md:flex items-center gap-2'>
         <NavALink text='Home' onClick={() => navigate('/')} />
         <div className='border-x border-primary h-4'></div>
-        <NavALink text='Write' onClick={() => navigate('/')} />
+        <NavALink text='Write' onClick={() => token ? navigate('/create-blog') : navigate('/login')} />
         <div className='border-x border-primary h-4'></div>
         <NavALink text='About' onClick={() => navigate('/')} />
         {token && <>
@@ -47,7 +47,7 @@ const NavBar = () => {
         {menu &&
           <div className='flex flex-col gap-1 absolute top-12 right-6 bg-secondary-variant p-2 rounded-md border border-primary md:hidden'>
             <NavLink text='Home' onClick={() => navigate('/')} />
-            <NavLink text='Write' onClick={() => navigate('/')} />
+            <NavLink text='Write' onClick={() => token ? navigate('/create-blog') : navigate('/login')} />
             <NavLink text='About' onClick={() => navigate('/')} />
             {token && <>
               <NavLink text='Logout' onClick={() => logout()} />

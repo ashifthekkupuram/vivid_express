@@ -6,7 +6,9 @@ import AuthWrapper from './components/AuthWrapper'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import CreateBlog from './pages/CreateBlog'
 import AuthRedirect from './components/AuthRedirect'
+import AuthRequired from './components/AuthRequired'
 
 function App() {
 
@@ -31,6 +33,16 @@ function App() {
           {
             path: '/register',
             element: <Register />
+          },
+        ]
+      },
+      {
+        path: '/',
+        element: <AuthRequired />,
+        children: [
+          {
+            path: '/create-blog',
+            element: <CreateBlog />
           },
         ]
       },

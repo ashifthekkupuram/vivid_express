@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import useAuth from '../state/useAuth'
+
 const baseURL = import.meta.env.VITE_API_URL
 
 const instance = axios.create({
@@ -9,6 +11,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     async (config) => {
+        const token = useAuth.getState().token || ''
+        if(token){
+            config.headers.Authorization = `Bearer ${token}`
+        }
         return config
     },
     (error) => {
