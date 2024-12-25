@@ -10,10 +10,10 @@ const useCreateBlog = () => {
 
     const navigate = useNavigate()
 
-    const create_blog = async (title, content) => {
+    const create_blog = async (title, content, categories) => {
         setLoading(true)
         try{
-            const response = await axios.post('/blog', { title: title.trim(), content: content.trim() })
+            const response = await axios.post('/blog', { title: title.trim(), content: content.trim(), categories })
             navigate('/')
             toast.success(response.data.message)
         } catch(err) {

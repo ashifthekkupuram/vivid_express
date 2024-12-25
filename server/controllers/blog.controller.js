@@ -3,7 +3,7 @@ import Blog from '../models/blog.model.js'
 export const get_blogs = async (req, res, next) => {
     try{
 
-        const blogs = await Blog.find({}).populate('author', 'name username profile').sort('-createdAt')
+        const blogs = await Blog.find({}).populate('author', 'name username profile').populate('categories').sort('-createdAt')
 
         return res.json({
             success: true,
@@ -32,7 +32,7 @@ export const get_blog = async (req, res, next) => {
             })
         }
 
-        const blog = await Blog.findById(blogId).populate('author', 'name username profile')
+        const blog = await Blog.findById(blogId).populate('author', 'name username profile').populate('categories')
 
         if(!blog){
             return res.status(400).json({
@@ -75,10 +75,17 @@ export const create_blog = async (req, res, next) => {
             })
         }
 
+        if(!categories){
+            return res.status(400).json({
+                success: false,
+                message: 'Category required'
+            }) 
+        }
+
         const blog = new Blog({
             title,
             content,
-            categories: categories || [],
+            categories: categories,
             author: req.user
         })
 

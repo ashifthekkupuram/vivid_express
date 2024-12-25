@@ -36,11 +36,11 @@ const Home = () => {
       </div>
       {/* Category Section */}
       <div className='flex justify-start items-center gap-2 p-2 bg-white rounded-2xl overflow-hidden'>
-        { categories && categories.map((cat) => <Category category={cat} />) }
+        { categories && categories.map((cat) => <Category key={cat._id} category={cat} />) }
       </div>
       {/* Blog Section */}
-      <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-hidden'>
-        { blogs && blogs.map((blog) => <Blog blog={blog} />) }
+      <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-auto'>
+        { blogs && blogs.map((blog) => <Blog key={blog._id} blog={blog} />) }
       </div>
     </div>
   )
