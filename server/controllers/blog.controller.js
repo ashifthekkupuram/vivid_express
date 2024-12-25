@@ -1,9 +1,26 @@
+import mongoose from 'mongoose'
+
 import Blog from '../models/blog.model.js'
 
 export const get_blogs = async (req, res, next) => {
     try{
 
-        const blogs = await Blog.find({}).populate('author', 'name username profile').populate('categories').sort('-createdAt')
+        const { categories, search } =  req.query
+
+        const filterData = {}
+
+        if(categories && categories.length > 0){
+            
+            filterData.categories = { $in: categories.forEach(id => mongoose.Types.ObjectId(id)) }
+        }
+
+        if(search){
+            filterData.search = search
+        }
+
+        console.log(filterData)
+
+        const blogs = await Blog.find(filterData).populate('author', 'name username profile').populate('categories').sort('-createdAt')
 
         return res.json({
             success: true,
@@ -12,6 +29,9 @@ export const get_blogs = async (req, res, next) => {
         })
 
     } catch(err) {
+
+        console.log(err)
+
         return res.status(400).json({
             success: false,
             message: 'Something went wrong',
@@ -75,7 +95,7 @@ export const create_blog = async (req, res, next) => {
             })
         }
 
-        if(!categories){
+        if(!categories.length > 0){
             return res.status(400).json({
                 success: false,
                 message: 'Category required'

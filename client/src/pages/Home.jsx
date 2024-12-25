@@ -9,21 +9,22 @@ import axios from '../api/axios'
 
 const Home = () => {
 
+  const selectedCategories = useBlogFilter((state) => state.categories)
   const search = useBlogFilter((state) => state.search)
   const setSearch = useBlogFilter((state) => state.setSearch)
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const response = await axios.get('/category')
+      const response = await axios.get('/category',)
       return response.data.categories
     }
   })
 
   const { data: blogs } = useQuery({
-    queryKey: ['blogs'],
+    queryKey: ['blogs', search, selectedCategories],
     queryFn: async () => {
-      const response = await axios.get('/blog')
+      const response = await axios.get('/blog', { params: { search: search.trim(), categories: selectedCategories } })
       return response.data.blogs
     }
   })
@@ -35,12 +36,12 @@ const Home = () => {
         <input value={search} type="text" className='shadow appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' placeholder='Search...' onChange={(e) => setSearch(e.target.value)} />
       </div>
       {/* Category Section */}
-      <div className='flex justify-start items-center gap-2 p-2 bg-white rounded-2xl overflow-hidden'>
-        { categories && categories.map((cat) => <Category key={cat._id} category={cat} />) }
+      <div className='flex justify-start items-center gap-2 p-2 w-full bg-white rounded-2xl scroll-container overflow-auto'>
+        {categories && categories.map((cat) => <Category key={cat._id} category={cat} />)}
       </div>
       {/* Blog Section */}
-      <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-auto'>
-        { blogs && blogs.map((blog) => <Blog key={blog._id} blog={blog} />) }
+      <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-auto scroll-container'>
+        {blogs && blogs.map((blog) => <Blog key={blog._id} blog={blog} />)}
       </div>
     </div>
   )

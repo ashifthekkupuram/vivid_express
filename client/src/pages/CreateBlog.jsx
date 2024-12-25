@@ -62,7 +62,7 @@ const CreateBlog = () => {
                 <div className="mb-3 w-full">
                     <input value={title} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight text-lg focus:outline-none focus:shadow-outline`} id="title" type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
                 </div>
-                <div className='mb-3 flex flex-row items-center gap-2 overflow-auto'>
+                <div className='mb-3 flex flex-row items-center gap-2 w-full overflow-auto scroll-container'>
                     <select className='shadow appearance-none border rounded p-1' name="categories" id="categories" onChange={onChangeCategory}>
                         {categories && categories.map((cat) => <option key={cat._id} value={cat._id}>{cat.name}</option>)}
                     </select>
