@@ -7,6 +7,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import CreateBlog from './pages/CreateBlog'
+import DeleteBlog from './pages/DeleteBlog'
+import UpdateBlog from './pages/UpdateBlog'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
 
@@ -44,6 +46,14 @@ function App() {
             path: '/create-blog',
             element: <CreateBlog />
           },
+          {
+            path: '/delete-blog/:blogId',
+            element: <DeleteBlog />
+          },
+          {
+            path: '/update-blog/:blogId',
+            element: <UpdateBlog />
+          }
         ]
       },
     ]

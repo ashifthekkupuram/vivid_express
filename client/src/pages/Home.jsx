@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import useBlogFilter from '../state/useBlogFilter'
 import Category from '../components/Category'
 import Blog from '../components/Blog'
+import Spinner from '../components/Spinner'
 
 import axios from '../api/axios'
 
@@ -21,10 +22,11 @@ const Home = () => {
     }
   })
 
-  const { data: blogs } = useQuery({
+  const { data: blogs, isLoading } = useQuery({
     queryKey: ['blogs', search, selectedCategories],
     queryFn: async () => {
       const response = await axios.get('/blog', { params: { search: search.trim(), categories: selectedCategories } })
+      setTimeout(() => {}, 5000)
       return response.data.blogs
     }
   })
@@ -41,7 +43,7 @@ const Home = () => {
       </div>
       {/* Blog Section */}
       <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-auto scroll-container'>
-        {blogs && blogs.map((blog) => <Blog key={blog._id} blog={blog} />)}
+        {isLoading ? <Spinner /> :  (blogs.length > 0 ? blogs.map((blog) => <Blog key={blog._id} blog={blog} />) : <div className='text-xl font-semibold text-[#808080] self-center justify-self-center'>No Blogs Found</div>) }
       </div>
     </div>
   )

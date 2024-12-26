@@ -10,15 +10,17 @@ export const get_blogs = async (req, res, next) => {
         const filterData = {}
 
         if(categories && categories.length > 0){
+
+            const convertedCatIds = categories.map(id => new mongoose.Types.ObjectId(id))
             
-            filterData.categories = { $in: categories.forEach(id => mongoose.Types.ObjectId(id)) }
+            filterData.categories = { $in: convertedCatIds }
         }
 
         if(search){
-            filterData.search = search
+            filterData.title = { $regex: search, $options: 'i' }
+            filterData.content = { $regex: search, $options: 'i' }
         }
 
-        console.log(filterData)
 
         const blogs = await Blog.find(filterData).populate('author', 'name username profile').populate('categories').sort('-createdAt')
 

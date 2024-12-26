@@ -1,8 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import { AiOutlineLike } from "react-icons/ai"
 import { AiFillLike } from "react-icons/ai"
-import { AiOutlineComment } from "react-icons/ai";
+import { AiOutlineComment } from "react-icons/ai"
+import { MdOutlineDelete } from "react-icons/md"
+import { MdOutlineEdit } from "react-icons/md"
 
 import Avatar from '../assets/images/avatar.jpg'
 import useAuth from '../state/useAuth'
@@ -17,6 +20,8 @@ const removeHTMLTags = (html) => {
 const Blog = ({ blog }) => {
 
   const UserData = useAuth((state) => state.UserData)
+
+  const navigate = useNavigate()
 
   return (
     <div className='flex flex-col w-full bg-white-variant rounded-lg border border-primary py-3 px-4 md:px-12'>
@@ -41,9 +46,13 @@ const Blog = ({ blog }) => {
       <hr className='mb-2' />
       <div className='flex flex-row justify-between items-center'>
         <div className='flex flex-row item-center justify-center gap-1'>
-          { blog.likes.includes(UserData._id) ? <AiFillLike className='text-xl' /> : <AiOutlineLike className='text-xl' /> }
+          { blog.likes.includes(UserData._id) ? <AiFillLike className='text-xl hover:cursor-pointer' /> : <AiOutlineLike className='text-xl hover:cursor-pointer' /> }
           <div className='text-sm'>{ blog.likes.length }</div>
-          <AiOutlineComment className='text-xl ml-2' />
+          <AiOutlineComment className='text-xl ml-2 hover:cursor-pointer' />
+        </div>
+        <div className='flex flex-row item-center justify-center gap-1'>
+          <MdOutlineEdit className='text-xl hover:cursor-pointer' onClick={() => navigate(`/update-blog/${blog._id}`)} />
+          <MdOutlineDelete className='text-xl hover:cursor-pointer' onClick={() => navigate(`/delete-blog/${blog._id}`)} />
         </div>
       </div>
     </div>
