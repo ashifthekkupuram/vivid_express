@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import useAuth from '../state/useAuth'
-import axios from '../api/axios'
+import api from '../api/axios'
 import useDeleteBlog from '../hooks/useDeleteBlog'
 
 const DeleteBlog = () => {
@@ -20,7 +20,7 @@ const DeleteBlog = () => {
     const { data: blog, isLoading } = useQuery({
         queryKey: ['blog', blogId],
         queryFn: async () => {
-            const response = await axios.get(`/blog/${blogId}`)
+            const response = await api.get(`/blog/${blogId}`)
             return response.data.blog
         },
         onError: (err) => {

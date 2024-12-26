@@ -2,7 +2,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-import axios from '../api/axios'
+import api from '../api/axios'
 
 const useDeleteBlog = () => {
   
@@ -13,7 +13,7 @@ const useDeleteBlog = () => {
     const delete_blog = async (blogId) => {
         setLoading(true)
         try{
-            const response = await axios.delete(`/blog/${blogId}`)
+            const response = await api.delete(`/blog/${blogId}`)
             navigate('/')
             toast.success(response.data.message)
         } catch(err) {

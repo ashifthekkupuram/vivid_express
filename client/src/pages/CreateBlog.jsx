@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { AiOutlineClose } from "react-icons/ai"
 
 import useCreateBlog from '../hooks/useCreateBlog'
-import axios from 'axios'
+import api from '../api/axios'
 
 const editorConfig = {
     toolbar: [
@@ -33,7 +33,7 @@ const CreateBlog = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const response = await axios.get('/category')
+            const response = await api.get('/category')
             return response.data.categories
         }
     })

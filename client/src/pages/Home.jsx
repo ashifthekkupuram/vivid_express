@@ -6,7 +6,7 @@ import Category from '../components/Category'
 import Blog from '../components/Blog'
 import Spinner from '../components/Spinner'
 
-import axios from '../api/axios'
+import api from '../api/axios'
 
 const Home = () => {
 
@@ -17,7 +17,7 @@ const Home = () => {
   const { data: categories } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const response = await axios.get('/category',)
+      const response = await api.get('/category',)
       return response.data.categories
     }
   })
@@ -25,7 +25,7 @@ const Home = () => {
   const { data: blogs, isLoading } = useQuery({
     queryKey: ['blogs', search, selectedCategories],
     queryFn: async () => {
-      const response = await axios.get('/blog', { params: { search: search.trim(), categories: selectedCategories } })
+      const response = await api.get('/blog', { params: { search: search.trim(), categories: selectedCategories } })
       setTimeout(() => {}, 5000)
       return response.data.blogs
     }

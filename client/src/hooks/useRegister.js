@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
-import axios from '../api/axios'
+import api from '../api/axios'
 
 const useRegister = () => {
   
@@ -15,7 +15,7 @@ const useRegister = () => {
         setLoading(true)
         setError(null)
         try{
-            const response = await axios.post('/auth/register', { email: email?.trim(), firstName: firstName?.trim(), secondName: secondName?.trim(), password })
+            const response = await api.post('/auth/register', { email: email?.trim(), firstName: firstName?.trim(), secondName: secondName?.trim(), password })
             toast.success(response.data.message)
             setError(null)
             navigate('/login')

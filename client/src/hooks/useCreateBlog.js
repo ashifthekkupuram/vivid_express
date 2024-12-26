@@ -2,7 +2,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-import axios from '../api/axios'
+import api from '../api/axios'
 
 const useCreateBlog = () => {
   
@@ -13,7 +13,7 @@ const useCreateBlog = () => {
     const create_blog = async (title, content, categories) => {
         setLoading(true)
         try{
-            const response = await axios.post('/blog', { title: title.trim(), content: content.trim(), categories })
+            const response = await api.post('/blog', { title: title.trim(), content: content.trim(), categories })
             navigate('/')
             toast.success(response.data.message)
         } catch(err) {

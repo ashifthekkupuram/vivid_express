@@ -2,7 +2,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import useAuth from '../state/useAuth'
-import axios from '../api/axios'
+import api from '../api/axios'
 
 const useLogout = () => {
   
@@ -13,7 +13,7 @@ const useLogout = () => {
     const logout = async () => {
         setLoading(true)
         try{
-            await axios.post('/auth/logout')
+            await api.post('/auth/logout')
             setAuth()
             toast.success('Logged out')
         } catch(err) {

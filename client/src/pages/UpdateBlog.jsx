@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 
 import useUpdateBlog from '../hooks/useUpdateBlog'
 import useAuth from '../state/useAuth'
-import axios from 'axios'
+import api from '../api/axios'
 
 const editorConfig = {
     toolbar: [
@@ -38,12 +38,12 @@ const UpdateBlog = () => {
     const { data: blog, isLoading } = useQuery({
         queryKey: ['blog', blogId],
         queryFn: async () => {
-            const response = await axios.get(`/blog/${blogId}`)
+            const response = await api.get(`/blog/${blogId}`)
             return response.data.blog
         },
         onError: (err) => {
-            console.log(err)
-            toast.error(err.response?.data?.message || 'Failed to fetch blog')
+            // navigate('/')
+            toast.error(err.response?.data?.message || 'Internal Server Error')
         }
     })
 
@@ -51,17 +51,17 @@ const UpdateBlog = () => {
     console.log(blog)
     if(blog){
         if(blog.author._id !== UserData._id){
-            navigate('/')
-            toast.error('forbidden')
-        }else{
-            console.log(blog)
             setTitle(blog.title)
             setContent(blog.content)
+            CKEditor.instances['']
+        }else{
+            navigate('/')
+            toast.error('Forbidden')
         }
     }
    },[blogId, blog, UserData._id, navigate])
 
-    const disabled = loading || !title || !content
+    const disabled = isLoading || loading || !title || !content
 
     return (
         <div className='flex flex-col gap-2 p-2 md:px-32 w-full h-full bg-secondary-variant'>
@@ -74,7 +74,7 @@ const UpdateBlog = () => {
                     <input value={title} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight text-lg focus:outline-none focus:shadow-outline`} id="title" type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className="mb-4 w-full">
-                    <CKEditor data={content} name='blog' config={editorConfig} onChange={(event) => setContent(event.editor.getData())} />
+                    <CKEditor data={content} name='blog-content' id='blog-content' config={editorConfig} onChange={(event) => setContent(event.editor.getData())} />
                 </div>
             </div>
         </div>
