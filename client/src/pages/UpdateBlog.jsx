@@ -21,13 +21,14 @@ const editorConfig = {
     ],
     removePlugins: 'elementspath',
     resize_enabled: false,
-    height: 270
+    height: 343
 }
 
 const UpdateBlog = () => {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
+    const [editorInstance, setEditorInstance] = useState(null)
 
     const [loading, update_blog] = useUpdateBlog()
     const UserData = useAuth()
@@ -48,18 +49,19 @@ const UpdateBlog = () => {
     })
 
    useEffect(() => {
-    console.log(blog)
     if(blog){
         if(blog.author._id !== UserData._id){
             setTitle(blog.title)
             setContent(blog.content)
-            CKEditor.instances['']
+            if(editorInstance){
+                editorInstance.setData(blog.content)
+            }
         }else{
             navigate('/')
             toast.error('Forbidden')
         }
     }
-   },[blogId, blog, UserData._id, navigate])
+   },[blogId, blog, UserData._id, navigate, editorInstance])
 
     const disabled = isLoading || loading || !title || !content
 
@@ -74,7 +76,7 @@ const UpdateBlog = () => {
                     <input value={title} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight text-lg focus:outline-none focus:shadow-outline`} id="title" type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className="mb-4 w-full">
-                    <CKEditor data={content} name='blog-content' id='blog-content' config={editorConfig} onChange={(event) => setContent(event.editor.getData())} />
+                    <CKEditor data={content} name='blog-content' id='blog-content' config={editorConfig} onInstanceReady={(e) => setEditorInstance(e.editor)} onChange={(event) => setContent(event.editor.getData())} />
                 </div>
             </div>
         </div>

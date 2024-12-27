@@ -68,7 +68,7 @@ const CreateBlog = () => {
                     </select>
                     {selectedCategories && selectedCategories.map((seleCat) => {
                         const category = categories.find((cat) => cat._id === seleCat)
-                        return <div className='selected-category' data-id={seleCat} onClick={onRemoveSelectedCategory} ><AiOutlineClose className='text-xs font-medium mr-1' /> {category.name}</div>
+                        return <div key={seleCat} className='selected-category' data-id={seleCat} onClick={onRemoveSelectedCategory} ><AiOutlineClose className='text-xs font-medium mr-1' /> {category.name}</div>
                     })}
                 </div>
                 <div className="mb-4 w-full">

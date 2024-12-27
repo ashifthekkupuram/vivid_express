@@ -23,7 +23,7 @@ const DeleteBlog = () => {
             const response = await api.get(`/blog/${blogId}`)
             return response.data.blog
         },
-        onError: (err) => {
+        throwOnError: (err) => {
             navigate('/')
             toast.error(err.response?.data?.message || 'Internal Server Error')
         }

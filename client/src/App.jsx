@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import CreateBlog from './pages/CreateBlog'
 import DeleteBlog from './pages/DeleteBlog'
 import UpdateBlog from './pages/UpdateBlog'
+import ViewBlog from './pages/ViewBlog'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
 
@@ -23,6 +24,10 @@ function App() {
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/view-blog/:blogId',
+        element: <ViewBlog />
       },
       {
         path: '/',

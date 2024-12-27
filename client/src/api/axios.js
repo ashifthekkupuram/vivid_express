@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 import useAuth from '../state/useAuth'
+import useRefresh from '../hooks/useRefresh'
+import useLogout from '../hooks/useLogout'
 
 const baseURL = import.meta.env.VITE_API_URL
 
@@ -27,6 +29,15 @@ instance.interceptors.response.use(
         return response
     },
     (error) => {
+        // let alreadyRefreshed = false
+        // if(!alreadyRefreshed){
+        //     if(error.status === 403){
+        //         const [loading, refresh] = useRefresh()
+        //         refresh()
+        //         alreadyRefreshed = true
+        //         return instance.request(error.config)
+        //     }
+        // }
         return Promise.reject(error)
     }
 )

@@ -21,6 +21,16 @@ const NavBar = () => {
 
   const navigate = useNavigate()
 
+  const onNavigate = (link) => {
+    setMenu(false)
+    navigate(link)
+  }
+
+  const onLogout = () => {
+    logout()
+    setMenu(false)
+  }
+
   return (
     <div className='flex sticky justify-between items-center bg-secondary w-full h-14 py-2 px-2 md:px-8'>
       <h1 className='text-primary text-lg font-bold italic tracking-wide'>VIVID EXPRESS</h1>
@@ -32,7 +42,7 @@ const NavBar = () => {
         <NavALink text='About' onClick={() => navigate('/')} />
         {token && <>
           <div className='border-x border-primary h-4'></div>
-          <NavALink text='Logout' onClick={() => logout()} />
+          <NavALink text='Logout' onClick={() => onLogout()} />
         </>}
       </div>
       <div className='flex items-center gap-2'>
@@ -46,9 +56,9 @@ const NavBar = () => {
         <RiMenu3Fill className='text-3xl text-primary font-bold hover:text-[#111b38] hover:cursor-pointer md:hidden' onClick={() => setMenu(prev => !prev)} />
         {menu &&
           <div className='flex flex-col gap-1 absolute top-12 right-6 bg-secondary-variant p-2 rounded-md border border-primary md:hidden'>
-            <NavLink text='Home' onClick={() => navigate('/')} />
-            <NavLink text='Write' onClick={() => token ? navigate('/create-blog') : navigate('/login')} />
-            <NavLink text='About' onClick={() => navigate('/')} />
+            <NavLink text='Home' onClick={() => onNavigate('/')} />
+            <NavLink text='Write' onClick={() => token ? onNavigate('/create-blog') : onNavigate('/login')} />
+            <NavLink text='About' onClick={() => onNavigate('/')} />
             {token && <>
               <NavLink text='Logout' onClick={() => logout()} />
             </>}
@@ -58,8 +68,8 @@ const NavBar = () => {
                 <img className='w-8 h-8 rounded-full border-2 border-primary transition-all hover:border-[#111b38]' alt='' src={Avatar} />
                 <h1 className='text-primary text-xs font-medium capitalize transition-all hover:text-[#111b38]'>{UserData?.name?.firstName} {UserData?.name?.secondName}</h1>
               </div> : <>
-                <button className='primary-btn' onClick={() => navigate('/login')}>Login</button>
-                <button className='primary-btn' onClick={() => navigate('/register')}>Register</button>
+                <button className='primary-btn' onClick={() => onNavigate('/login')}>Login</button>
+                <button className='primary-btn' onClick={() => onNavigate('/register')}>Register</button>
               </>}
             </div>
           </div>}
