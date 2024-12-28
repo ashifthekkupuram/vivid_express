@@ -22,7 +22,7 @@ export const get_comments = async (req, res, next) => {
             })
         }
 
-        const comments = Comment.find({ blog }).populate('author', 'username name profile')
+        const comments = await Comment.find({ blog }).populate('author', 'username name profile')
 
         return res.json({
             success: true,
@@ -33,7 +33,7 @@ export const get_comments = async (req, res, next) => {
     } catch(err) {
         return res.status(400).json({
             success: false,
-            message: 'Something went wrong',
+            message: 'Something went wrongg',
             error: err
         })
     }
@@ -45,10 +45,17 @@ export const create_comment = async (req, res, next) => {
         const { blogId } = req.params
         const { content } = req.body
 
-        if(!blogId || !content || !content.length >= 10 ){
+        if(!blogId){
             return res.status(400).json({
                 success: false,
-                message: 'Blog ID and Content(must be 10 characters or above) required',
+                message: 'Blog ID required',
+            })
+        }
+
+        if(!content || content.length < 10 ){
+            return res.status(400).json({
+                success: false,
+                message: 'Comment must be 10 characters or above',
             })
         }
 
@@ -78,6 +85,9 @@ export const create_comment = async (req, res, next) => {
         })
 
     } catch(err) {
+
+        console.log(err)
+
         return res.status(400).json({
             success: false,
             message: 'Something went wrong',
