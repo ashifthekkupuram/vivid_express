@@ -4,12 +4,18 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { format } from 'date-fns'
+import { AiOutlineLike } from "react-icons/ai"
+import { AiFillLike } from "react-icons/ai"
+import { useQueryClient } from '@tanstack/react-query'
 
 import api from '../api/axios'
 import Avatar from '../assets/images/avatar.jpg'
 import HtmlConverter from '../components/HtmlConverter'
 import CommentsModel from '../components/CommentsModel'
 import useAddComment from '../hooks/useAddComment'
+import useEditComment from '../hooks/useEditComment'
+import useLikeBlog from '../hooks/useLikeBlog'
+import useAuth from '../state/useAuth'
 
 const ViewBlog = () => {
 
@@ -17,12 +23,22 @@ const ViewBlog = () => {
         show: false,
         blogId: ''
     })
+    const [editComment, setEditComment] = useState({
+        edit: false,
+        commentId: ''
+    })
     const [comment, setComment] = useState('')
 
     const { blogId } = useParams()
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
 
-    const [loading, add_comment] = useAddComment()
+    const token = useAuth((state) => state.token)
+    const UserData = useAuth((state) => state.UserData)
+
+    const [addLoading, add_comment] = useAddComment()
+    const [editLoading, edit_comment] = useEditComment()
+    const [likeLoading, like_blog] = useLikeBlog()
 
     const { data: blog } = useQuery({
         queryKey: ['blog', blogId],
@@ -37,13 +53,28 @@ const ViewBlog = () => {
     })
 
     const onAddComment = async () => {
-            const res = await add_comment(blog._id, comment)
-            if(res === 'success'){
-                setComment('')
-            }
+        const res = await add_comment(blog._id, comment)
+        if (res === 'success') {
+            setComment('')
+        }
     }
 
-    const addCommentDisabled = loading || !comment.trim()
+    const onEditComment = async () => {
+        const res = await edit_comment(editComment.commentId, comment)
+        if (res === 'success') {
+            setComment('')
+            setEditComment({ edit: false, commentId: '' })
+        }
+    }
+
+    const onLikeBlog = () => {
+        like_blog(blogId)
+        queryClient.refetchQueries({queryKey: ['blog', blog._id], type: 'active'})
+    }
+
+    console.log(blog)
+
+    const disabled = addLoading || editLoading || !comment.trim()
 
     return (
         <>
@@ -59,22 +90,26 @@ const ViewBlog = () => {
                     <div className='flex  fle-row gap-2 mb-2'>
                         {blog && blog.categories.map((cat) => <div key={cat._id} className='selected-category'>{cat.name}</div>)}
                     </div>
-                    <div className='text-xs text-[#808080]'>
+                    <div className='text-xs text-[#808080] mb-3'>
                         {blog && `created at ${format(blog.createdAt, 'LLLL do, y')}`}
+                    </div>
+                    <div className='flex flex-row items-center gap-1'>
+                        {blog?.likes.some((val) => val === UserData._id) ? <AiFillLike className='text-xl hover:cursor-pointer' onClick={!likeLoading && onLikeBlog} /> : <AiOutlineLike className='text-xl hover:cursor-pointer' onClick={!likeLoading && onLikeBlog} />}
+                        <div className='text-lg'>{blog?.likes.length}</div>
                     </div>
                 </div>
                 <div className='h-full p-4 bg-white rounded-2xl overflow-auto'>
                     {blog && <HtmlConverter content={blog.content} />}
                 </div>
                 <div className='flex flex-col justify-start items-start p-2 bg-white rounded-2xl gap-2'>
-                    <textarea value={comment} className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' type="text" placeholder='Comment something...' onChange={(e) => setComment(e.target.value)}  />
+                    {token && <textarea value={comment} className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' type="text" placeholder='Comment something...' onChange={(e) => setComment(e.target.value)} />}
                     <div className='flex flex-row gap-2'>
-                        <button disabled={addCommentDisabled} className='primary-btn bg' onClick={onAddComment}>Send Comment</button>
+                        {token && <button disabled={disabled} className='primary-btn bg' onClick={editComment.edit ? onEditComment : onAddComment}>{editComment.edit ? 'Edit Comment' : 'Add Comment'}</button>}
                         <button className='primary-btn' onClick={() => setShowComments({ show: true, blogId: blog._id })}>View Comments</button>
                     </div>
                 </div>
             </div>
-            {showComments.show && <CommentsModel setShowComments={setShowComments} blogId={showComments.blogId} />}
+            {showComments.show && <CommentsModel setEditComment={setEditComment} setComment={setComment} setShowComments={setShowComments} blogId={showComments.blogId} />}
         </>
     )
 }

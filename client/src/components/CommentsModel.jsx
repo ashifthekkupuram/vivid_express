@@ -5,7 +5,7 @@ import { MdClose } from "react-icons/md"
 import api from '../api/axios'
 import Comment from './Comment'
 
-const CommentsModel = ({ blogId, setShowComments }) => {
+const CommentsModel = ({ blogId, setShowComments, setEditComment, setComment }) => {
 
     const { data: comments } = useQuery({
         queryKey: ['comments', blogId],
@@ -27,7 +27,7 @@ const CommentsModel = ({ blogId, setShowComments }) => {
                     <MdClose className='text-2xl rounded-full transition-all hover:bg-[#424242] hover:text-white hover:cursor-pointer' onClick={onClose} />
                 </div>
                 <div className="flex flex-col justify-start items-center gap-2 w-full">
-                    { comments && comments.length > 0 ? comments.map((comment) => <Comment key={comment._id} comment={comment} />) : <div className='text-xl font-semibold text-[#808080] self-center justify-self-center'>No Comment were added</div> }
+                    { comments && comments.length > 0 ? comments.map((comment) => <Comment key={comment._id} comment={comment} setEditComment={setEditComment} setComment={setComment} setShowComments={setShowComments} />) : <div className='text-xl font-semibold text-[#808080] self-center justify-self-center'>No Comment were added</div> }
                 </div>
             </div>
         </div>

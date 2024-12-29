@@ -6,6 +6,7 @@ import { MdOutlineDelete } from "react-icons/md"
 import { MdOutlineEdit } from "react-icons/md"
 
 import Avatar from '../assets/images/avatar.jpg'
+import useAuth from '../state/useAuth'
 
 const removeHTMLTags = (html) => {
   return html
@@ -17,6 +18,8 @@ const removeHTMLTags = (html) => {
 const Blog = ({ blog }) => {
 
   const navigate = useNavigate()
+
+  const UserData = useAuth((state) => state.UserData)
 
   const onViewBlog = () => {
     navigate(`/view-blog/${blog._id}`)
@@ -49,10 +52,13 @@ const Blog = ({ blog }) => {
           <div className='text-sm font-semibold'>Likes</div>
           <AiOutlineComment className='text-xl ml-2 hover:cursor-pointer' />
         </div>
-        <div className='flex flex-row item-center justify-center gap-1'>
-          <MdOutlineEdit className='text-xl hover:cursor-pointer' onClick={() => navigate(`/update-blog/${blog._id}`)} />
-          <MdOutlineDelete className='text-xl hover:cursor-pointer' onClick={() => navigate(`/delete-blog/${blog._id}`)} />
-        </div>
+        {
+          UserData._id === blog.author._id && 
+          <div className='flex flex-row item-center justify-center gap-1'>
+            <MdOutlineEdit className='text-xl hover:cursor-pointer' onClick={() => navigate(`/update-blog/${blog._id}`)} />
+            <MdOutlineDelete className='text-xl hover:cursor-pointer' onClick={() => navigate(`/delete-blog/${blog._id}`)} />
+          </div>
+        }
       </div>
     </div>
   )

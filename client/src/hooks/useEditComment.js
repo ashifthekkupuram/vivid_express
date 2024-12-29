@@ -3,14 +3,14 @@ import toast from 'react-hot-toast'
 
 import api from '../api/axios'
 
-const useAddComment = () => {
+const useEditComment = () => {
   
-    const [addLoading, setLoading] = useState(false)
+    const [editLoading, setLoading] = useState(false)
 
-    const add_comment = async (blogId, comment) => {
+    const edit_comment = async (commentId, comment) => {
         setLoading(true)
         try{
-            const response = await api.post(`/comment/${blogId}`, { content: comment.trim() })
+            const response = await api.put(`/comment/${commentId}`, { content: comment.trim() })
             toast.success(response.data.message)
             return 'success'
         } catch(err) {
@@ -20,7 +20,7 @@ const useAddComment = () => {
         }
     }
 
-    return [ addLoading, add_comment ]
+    return [ editLoading, edit_comment ]
 }
 
-export default useAddComment
+export default useEditComment

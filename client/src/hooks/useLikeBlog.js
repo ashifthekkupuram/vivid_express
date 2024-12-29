@@ -5,7 +5,7 @@ import api from '../api/axios'
 
 const useLikeBlog = () => {
 
-    const [loading, setLoading] = useState(false)
+    const [likeLoading, setLoading] = useState(false)
 
     const like_blog = async (blogId) => {
         setLoading(false)
@@ -18,7 +18,7 @@ const useLikeBlog = () => {
         }
     }
 
-    return [loading, like_blog]
+    return [likeLoading, like_blog]
 }
 
 export default useLikeBlog

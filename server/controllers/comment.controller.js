@@ -22,7 +22,7 @@ export const get_comments = async (req, res, next) => {
             })
         }
 
-        const comments = await Comment.find({ blog }).populate('author', 'username name profile')
+        const comments = await Comment.find({ blog }).populate('author', 'username name profile').populate('blog')
 
         return res.json({
             success: true,
@@ -113,7 +113,7 @@ export const update_comment = async (req, res, next) => {
 
         return res.json({
             success: true,
-            message: 'Comment created',
+            message: 'Comment edited',
             comment: updatedComment
         })
 
