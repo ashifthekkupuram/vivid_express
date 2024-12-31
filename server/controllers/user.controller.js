@@ -4,6 +4,42 @@ import User from '../models/user.model.js'
 
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\S]{8,}$/
 
+export const get_user = async (req, res, next) => {
+    try{
+
+        const { username } = req.params
+
+        if(!username){
+            return res.status(400).json({
+                success: false,
+                message: 'Username required'
+            })
+        }
+
+        const user = await User.findOne({ username }, 'name username profile createdAt')
+
+        if(!user){
+            return res.status(400).json({
+                success: false,
+                message: 'User not found'
+            })
+        }
+
+        return res.json({
+            success: true,
+            message: 'User retrieved',
+            user
+        })
+
+    } catch(err) {
+        return res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+            error: err
+        })
+    }
+}
+
 export const change_name = async (req, res, next) => {
     try {
 
@@ -40,9 +76,6 @@ export const change_name = async (req, res, next) => {
         })
 
     } catch (err) {
-        
-        console.log(err)
-
         return res.status(400).json({
             success: false,
             message: 'Something went wrong',

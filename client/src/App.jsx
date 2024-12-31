@@ -10,6 +10,7 @@ import CreateBlog from './pages/CreateBlog'
 import DeleteBlog from './pages/DeleteBlog'
 import UpdateBlog from './pages/UpdateBlog'
 import ViewBlog from './pages/ViewBlog'
+import UserPage from './pages/UserPage'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
 
@@ -28,6 +29,10 @@ function App() {
       {
         path: '/view-blog/:blogId',
         element: <ViewBlog />
+      },
+      {
+        path: '/u/:username',
+        element: <UserPage />
       },
       {
         path: '/',

@@ -5,7 +5,7 @@ import Blog from '../models/blog.model.js'
 export const get_blogs = async (req, res, next) => {
     try{
 
-        const { categories, search } =  req.query
+        const { categories, search, userId } =  req.query
 
         const filterData = {}
 
@@ -21,6 +21,9 @@ export const get_blogs = async (req, res, next) => {
             filterData.content = { $regex: search, $options: 'i' }
         }
 
+        if(userId){
+            filterData.author = userId
+        }
 
         const blogs = await Blog.find(filterData).populate('author', 'name username profile').populate('categories').sort('-createdAt')
 
@@ -31,9 +34,6 @@ export const get_blogs = async (req, res, next) => {
         })
 
     } catch(err) {
-
-        console.log(err)
-
         return res.status(400).json({
             success: false,
             message: 'Something went wrong',
@@ -122,9 +122,6 @@ export const create_blog = async (req, res, next) => {
         })
 
     } catch(err) {
-
-        console.log(err)
-
         return res.status(400).json({
             success: false,
             message: 'Something went wrongg',

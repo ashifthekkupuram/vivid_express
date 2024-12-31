@@ -25,16 +25,28 @@ const Blog = ({ blog }) => {
     navigate(`/view-blog/${blog._id}`)
   }
 
+  const onViewUser = () => {
+    navigate(`/u/${blog.author.username}`)
+  }
+
+  const onUpdateBlog = () => {
+    navigate(`/update-blog/${blog._id}`)
+  }
+  
+  const onDeleteBlog = () => {
+    navigate(`/delete-blog/${blog._id}`)
+  }
+
   return (
     <div className='flex flex-col w-full bg-white-variant rounded-lg border border-primary py-3 px-4 md:px-12'>
-      <div className='flex flex-row justify-start items-center gap-3 mb-3'>
+      <div className='flex flex-row justify-start items-center gap-3 mb-3 hover:cursor-pointer' onClick={onViewUser}>
         <img className='w-10 h-10 rounded-full' src={blog.author.profile || Avatar} alt="" />
         <h1 className='text-lg capitalize text-[#808080] '>{blog.author.name.firstName} {blog.author.name.secondName}</h1>
       </div>
-      <h1 className='text-4xl font-normal capitalize mb-2 text-wrap overflow-hidden' onClick={onViewBlog}>
+      <h1 className='text-4xl font-normal capitalize mb-2 text-wrap overflow-hidden hover:cursor-pointer' onClick={onViewBlog}>
         {blog.title}
       </h1>
-      <div className='font-extralight normal-case text-[#808080] overflow-hidden break-words line-clamp-2 mb-3 md:line-clamp-4' onClick={onViewBlog}>
+      <div className='font-extralight normal-case text-[#808080] overflow-hidden break-words line-clamp-2 mb-3 md:line-clamp-4 hover:cursor-pointer' onClick={onViewBlog}>
 
         {removeHTMLTags(blog.content)}...
       </div>
@@ -53,10 +65,10 @@ const Blog = ({ blog }) => {
           <AiOutlineComment className='text-xl ml-2 hover:cursor-pointer' />
         </div>
         {
-          UserData._id === blog.author._id && 
+          UserData._id === blog.author._id &&
           <div className='flex flex-row item-center justify-center gap-1'>
-            <MdOutlineEdit className='text-xl hover:cursor-pointer' onClick={() => navigate(`/update-blog/${blog._id}`)} />
-            <MdOutlineDelete className='text-xl hover:cursor-pointer' onClick={() => navigate(`/delete-blog/${blog._id}`)} />
+            <MdOutlineEdit className='text-xl hover:cursor-pointer' onClick={onUpdateBlog} />
+            <MdOutlineDelete className='text-xl hover:cursor-pointer' onClick={onDeleteBlog} />
           </div>
         }
       </div>

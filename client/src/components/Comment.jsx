@@ -28,8 +28,6 @@ const Comment = ({ comment, setEditComment, setComment, setShowComments }) => {
         setShowComments({ show: false, blogId: '' })
     }
 
-    console.log(comment)
-
     return (
         <div className='flex flex-col w-full bg-white-variant rounded-lg border border-primary py-3 px-4'>
             <div className='flex flex-row justify-between items-center'>
