@@ -40,7 +40,7 @@ const Blog = ({ blog }) => {
   return (
     <div className='flex flex-col w-full bg-white-variant rounded-lg border border-primary py-3 px-4 md:px-12'>
       <div className='flex flex-row justify-start items-center gap-3 mb-3 hover:cursor-pointer' onClick={onViewUser}>
-        <img className='w-10 h-10 rounded-full' src={blog.author.profile || Avatar} alt="" />
+        <img className='w-10 h-10 rounded-full' src={blog.author.profile ?  `${import.meta.env.VITE_PROFILE_URL}/${blog.author.profile}` : Avatar} alt="" />
         <h1 className='text-lg capitalize text-[#808080] '>{blog.author.name.firstName} {blog.author.name.secondName}</h1>
       </div>
       <h1 className='text-4xl font-normal capitalize mb-2 text-wrap overflow-hidden hover:cursor-pointer' onClick={onViewBlog}>

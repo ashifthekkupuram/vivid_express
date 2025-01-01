@@ -47,7 +47,7 @@ const NavBar = () => {
       </div>
       <div className='flex items-center gap-2'>
         {token ? <div className='flex items-center gap-2 hover:cursor-pointer' onClick={() => onNavigate('/profile')}>
-          <img className='hidden md:block w-10 h-10 rounded-full border-2 border-primary transition-all hover:border-[#111b38]' alt='' src={Avatar} />
+          <img className='hidden md:block w-10 h-10 rounded-full border-2 border-primary transition-all hover:border-[#111b38]' alt='' src={UserData.profile ? `${import.meta.env.VITE_PROFILE_URL}/${UserData.profile}` : Avatar} />
           <h1 className='hidden md:block text-primary text-sm font-medium capitalize transition-all hover:text-[#111b38]'>{UserData?.name?.firstName} {UserData?.name?.secondName}</h1>
         </div> : <>
           <button className='hidden primary-btn md:block' onClick={() => navigate('/login')}>Login</button>
@@ -65,7 +65,7 @@ const NavBar = () => {
             <hr className='bg-primary' />
             <div className='flex items-center gap-2'>
               {token ? <div className='flex items-center gap-2 hover:cursor-pointer' onClick={() => onNavigate('/profile')}>
-                <img className='w-8 h-8 rounded-full border-2 border-primary transition-all hover:border-[#111b38]' alt='' src={Avatar}  />
+                <img className='w-8 h-8 rounded-full border-2 border-primary transition-all hover:border-[#111b38]' alt='' src={UserData.profile ? `${import.meta.env.VITE_PROFILE_URL}/${UserData.profile}` : Avatar}  />
                 <h1 className='text-primary text-xs font-medium capitalize transition-all hover:text-[#111b38]' >{UserData?.name?.firstName} {UserData?.name?.secondName}</h1>
               </div> : <>
                 <button className='primary-btn' onClick={() => onNavigate('/login')}>Login</button>

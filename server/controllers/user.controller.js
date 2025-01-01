@@ -204,3 +204,65 @@ export const change_password = async (req, res, next) => {
         })
     }
 }
+
+export const change_profile = async (req, res, next) => {
+    try{
+
+        const profile = req.file
+
+        const user = await User.findById(req.user)
+
+        const updatedUser = await User.findByIdAndUpdate(user._id, { profile: profile.filename }, { new: true })
+
+        return res.json({
+            success: true,
+            message: 'Profile added',
+            UserData: {
+                _id: updatedUser._id,
+                email: updatedUser.email,
+                username: updatedUser.username,
+                name: updatedUser.name,
+                bio: updatedUser.bio,
+                profile: updatedUser.profile
+            }
+        })
+
+
+    } catch(err) {
+        return res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+            error: err
+        })
+    }
+}
+
+export const remove_profile = async (req, res, next) => {
+    try{
+
+        const user = await User.findById(req.user)
+
+        const updatedUser = await User.findByIdAndUpdate(user._id, { profile: '' }, { new: true })
+
+        return res.json({
+            success: true,
+            message: 'Profile removed',
+            UserData: {
+                _id: updatedUser._id,
+                email: updatedUser.email,
+                username: updatedUser.username,
+                name: updatedUser.name,
+                bio: updatedUser.bio,
+                profile: updatedUser.profile
+            }
+        })
+
+
+    } catch(err) {
+        return res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+            error: err
+        })
+    }
+}

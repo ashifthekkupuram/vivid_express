@@ -32,7 +32,7 @@ const Comment = ({ comment, setEditComment, setComment, setShowComments }) => {
         <div className='flex flex-col w-full bg-white-variant rounded-lg border border-primary py-3 px-4'>
             <div className='flex flex-row justify-between items-center'>
                 <div className='flex justify-start items-center gap-3 mb-3'>
-                    <img className='w-10 h-10 rounded-full' src={comment?.author?.profile || Avatar} alt="" />
+                    <img className='w-10 h-10 rounded-full' src={comment?.author?.profile ? `${import.meta.env.VITE_PROFILE_URL}/${comment.author.profile}` : Avatar} alt="" />
                     <h1 className='text-lg capitalize text-[#808080] '>{comment?.author?.name?.firstName} {comment?.author?.name?.secondName}</h1>
                 </div>
                 <div className='flex flex-row gap-2'>
