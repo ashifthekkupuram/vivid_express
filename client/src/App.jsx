@@ -11,6 +11,10 @@ import DeleteBlog from './pages/DeleteBlog'
 import UpdateBlog from './pages/UpdateBlog'
 import ViewBlog from './pages/ViewBlog'
 import UserPage from './pages/UserPage'
+import Profile from './pages/Profile'
+import ChangeUsername from './pages/ChangeUsername'
+import ChangeName from './pages/ChangeName'
+import ChangePassword from './pages/ChangePassword'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
 
@@ -63,6 +67,22 @@ function App() {
           {
             path: '/update-blog/:blogId',
             element: <UpdateBlog />
+          },
+          {
+            path: '/profile',
+            element: <Profile />
+          },
+          {
+            path: '/change-username',
+            element: <ChangeUsername />
+          },
+          {
+            path: '/change-name',
+            element: <ChangeName />
+          },
+          {
+            path: '/change-password',
+            element: <ChangePassword />
           }
         ]
       },
