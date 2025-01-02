@@ -5,25 +5,25 @@ import useAuth from '../state/useAuth'
 import api from '../api/axios'
 
 const useLogout = () => {
-  
+
     const [loading, setLoading] = useState(false)
 
     const setAuth = useAuth((state) => state.setAuth)
 
     const logout = async () => {
         setLoading(true)
-        try{
+        try {
             await api.post('/auth/logout')
             setAuth()
             toast.success('Logged out')
-        } catch(err) {
-            
+        } catch (err) {
+
         } finally {
             setLoading(false)
         }
     }
 
-    return [ loading, logout ]
+    return { loading, logout }
 }
 
 export default useLogout

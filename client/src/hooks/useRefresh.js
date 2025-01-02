@@ -5,19 +5,19 @@ import useAuth from '../state/useAuth'
 import api from '../api/axios'
 
 const useRefresh = () => {
-  
+
     const [loading, setLoading] = useState(false)
 
     const setAuth = useAuth((state) => state.setAuth)
 
     const refresh = async () => {
         setLoading(true)
-        try{
+        try {
             const response = await api.post('/auth/refresh')
             setAuth(response.data)
-        } catch(err) {
+        } catch (err) {
             setAuth()
-            if(err.status === 403){
+            if (err.status === 403) {
                 toast.error(err.response.data.message)
             }
         } finally {
@@ -25,7 +25,7 @@ const useRefresh = () => {
         }
     }
 
-    return [ loading, refresh ]
+    return { loading, refresh }
 }
 
 export default useRefresh

@@ -26,7 +26,7 @@ const useChangePassword = () => {
         }
     }
 
-    return [ loading, error, change_password ]
+    return { loading, error, change_password }
 }
 
 export default useChangePassword

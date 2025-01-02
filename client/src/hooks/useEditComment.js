@@ -5,7 +5,7 @@ import api from '../api/axios'
 
 const useEditComment = () => {
   
-    const [editLoading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const edit_comment = async (commentId, comment) => {
         setLoading(true)
@@ -20,7 +20,7 @@ const useEditComment = () => {
         }
     }
 
-    return [ editLoading, edit_comment ]
+    return { loading, edit_comment }
 }
 
 export default useEditComment

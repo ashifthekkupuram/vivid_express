@@ -27,7 +27,7 @@ const useChangeProfile = () => {
         }
     }
 
-    return [ loading, change_profile ]
+    return { loading, change_profile }
 }
 
 export default useChangeProfile

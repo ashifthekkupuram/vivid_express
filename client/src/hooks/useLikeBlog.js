@@ -5,20 +5,20 @@ import api from '../api/axios'
 
 const useLikeBlog = () => {
 
-    const [likeLoading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const like_blog = async (blogId) => {
         setLoading(false)
-        try{
+        try {
             await api.post(`blog/like/${blogId}`)
-        } catch(err) {
+        } catch (err) {
             toast.error(err?.response?.data?.message || 'Internal Server')
         } finally {
             setLoading(false)
         }
     }
 
-    return [likeLoading, like_blog]
+    return { loading, like_blog }
 }
 
 export default useLikeBlog

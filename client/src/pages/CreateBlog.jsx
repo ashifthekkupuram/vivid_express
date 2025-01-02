@@ -19,7 +19,8 @@ const editorConfig = {
     ],
     removePlugins: 'elementspath',
     resize_enabled: false,
-    height: 270
+    height: 270,
+    versionCheck: false,
 }
 
 const CreateBlog = () => {
@@ -28,7 +29,7 @@ const CreateBlog = () => {
     const [content, setContent] = useState('')
     const [selectedCategories, setSelectedCategories] = useState([])
 
-    const [loading, create_blog] = useCreateBlog()
+    const { loading, create_blog } = useCreateBlog()
 
     const { data: categories = [] } = useQuery({
         queryKey: ['categories'],

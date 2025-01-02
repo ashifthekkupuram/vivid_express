@@ -30,7 +30,7 @@ const useChangeUsername = () => {
         }
     }
 
-    return [ loading, error, change_username ]
+    return { loading, error, change_username }
 }
 
 export default useChangeUsername

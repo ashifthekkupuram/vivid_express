@@ -1,4 +1,4 @@
-import React,{ useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 
@@ -7,11 +7,11 @@ import useRefresh from '../hooks/useRefresh'
 
 const AuthWrapper = () => {
 
-  const [ loading, refresh ] = useRefresh()
+  const { loading, refresh } = useRefresh()
 
   useEffect(() => {
     refresh()
-  },[])
+  }, [])
 
   return (
     <div className='flex flex-col h-screen'>

@@ -11,13 +11,13 @@ const Comment = ({ comment, setEditComment, setComment, setShowComments }) => {
 
     const queryClient = useQueryClient()
 
-    const [loading, delete_comment] = useDeleteComment()
+    const { loading, delete_comment } = useDeleteComment()
 
     const UserData = useAuth((state) => state.UserData)
 
     const onDeleteComment = async () => {
         const res = await delete_comment(comment._id)
-        if(res === 'success'){
+        if (res === 'success') {
             await queryClient.refetchQueries({ queryKey: ['comments', comment.blog], type: 'active' })
         }
     }

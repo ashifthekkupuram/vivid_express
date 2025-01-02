@@ -23,7 +23,7 @@ const useCreateBlog = () => {
         }
     }
 
-    return [ loading, create_blog ]
+    return { loading, create_blog }
 }
 
 export default useCreateBlog

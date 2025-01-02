@@ -6,7 +6,7 @@ import useAuth from '../state/useAuth'
 import api from '../api/axios'
 
 const useChangeName = () => {
-  
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -17,20 +17,20 @@ const useChangeName = () => {
     const change_name = async (firstName, secondName) => {
         setLoading(true)
         setError(null)
-        try{
+        try {
             const response = await api.post('/user/change_name', { firstName: firstName.trim(), secondName: secondName.trim() })
             setUserData(response.data.UserData)
             navigate('/profile')
             toast.success(response.data.message)
             setError(null)
-        } catch(err) {
+        } catch (err) {
             setError(err.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)
         }
     }
 
-    return [ loading, error, change_name ]
+    return { loading, error, change_name }
 }
 
 export default useChangeName

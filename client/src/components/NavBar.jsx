@@ -17,7 +17,7 @@ const NavBar = () => {
   const token = useAuth((state) => state.token)
   const UserData = useAuth((state) => state.UserData)
 
-  const [loading, logout] = useLogout()
+  const { loading, logout } = useLogout()
 
   const navigate = useNavigate()
 
@@ -32,7 +32,7 @@ const NavBar = () => {
   }
 
   return (
-    <div className='flex sticky justify-between items-center bg-secondary w-full h-14 py-2 px-2 md:px-8'>
+    <div className='flex sticky top-0 justify-between items-center bg-secondary w-full h-14 py-2 px-2 md:px-8'>
       <h1 className='text-primary text-lg font-bold italic tracking-wide'>VIVID EXPRESS</h1>
       <div className='hidden md:flex items-center gap-2'>
         <NavALink text='Home' onClick={() => navigate('/')} />
@@ -65,7 +65,7 @@ const NavBar = () => {
             <hr className='bg-primary' />
             <div className='flex items-center gap-2'>
               {token ? <div className='flex items-center gap-2 hover:cursor-pointer' onClick={() => onNavigate('/profile')}>
-                <img className='w-8 h-8 rounded-full border-2 border-primary transition-all hover:border-[#111b38]' alt='' src={UserData.profile ? `${import.meta.env.VITE_PROFILE_URL}/${UserData.profile}` : Avatar}  />
+                <img className='w-8 h-8 rounded-full border-2 border-primary transition-all hover:border-[#111b38]' alt='' src={UserData.profile ? `${import.meta.env.VITE_PROFILE_URL}/${UserData.profile}` : Avatar} />
                 <h1 className='text-primary text-xs font-medium capitalize transition-all hover:text-[#111b38]' >{UserData?.name?.firstName} {UserData?.name?.secondName}</h1>
               </div> : <>
                 <button className='primary-btn' onClick={() => onNavigate('/login')}>Login</button>

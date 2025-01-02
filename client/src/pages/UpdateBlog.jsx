@@ -21,7 +21,8 @@ const editorConfig = {
     ],
     removePlugins: 'elementspath',
     resize_enabled: false,
-    height: 343
+    height: 343,
+    versionCheck: false,
 }
 
 const UpdateBlog = () => {
@@ -30,7 +31,7 @@ const UpdateBlog = () => {
     const [content, setContent] = useState('')
     const [editorInstance, setEditorInstance] = useState(null)
 
-    const [loading, update_blog] = useUpdateBlog()
+    const { loading, update_blog } = useUpdateBlog()
     const UserData = useAuth()
 
     const navigate = useNavigate()
@@ -48,20 +49,20 @@ const UpdateBlog = () => {
         }
     })
 
-   useEffect(() => {
-    if(blog){
-        if(blog.author._id !== UserData._id){
-            setTitle(blog.title)
-            setContent(blog.content)
-            if(editorInstance){
-                editorInstance.setData(blog.content)
+    useEffect(() => {
+        if (blog) {
+            if (blog.author._id !== UserData._id) {
+                setTitle(blog.title)
+                setContent(blog.content)
+                if (editorInstance) {
+                    editorInstance.setData(blog.content)
+                }
+            } else {
+                navigate('/')
+                toast.error('Forbidden')
             }
-        }else{
-            navigate('/')
-            toast.error('Forbidden')
         }
-    }
-   },[blogId, blog, UserData._id, navigate, editorInstance])
+    }, [blogId, blog, UserData._id, navigate, editorInstance])
 
     const disabled = isLoading || loading || !title || !content
 

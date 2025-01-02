@@ -7,7 +7,7 @@ import api from '../api/axios'
 
 const useRemoveProfile = () => {
   
-    const [removeLoading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const setUserData = useAuth((state) => state.setUserData)
 
@@ -27,7 +27,7 @@ const useRemoveProfile = () => {
         }
     }
 
-    return [ loading, remove_profile ]
+    return { loading, remove_profile }
 }
 
 export default useRemoveProfile

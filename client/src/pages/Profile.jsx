@@ -11,8 +11,8 @@ const Profile = () => {
 
     const UserData = useAuth((state) => state.UserData)
 
-    const [ loading, change_profile ] = useChangeProfile()
-    const [ removeLoading, remove_profile ] = useRemoveProfile()
+    const { loading, change_profile } = useChangeProfile()
+    const { loading: removeLoading, remove_profile } = useRemoveProfile()
 
     const ImageField = useRef(null)
 

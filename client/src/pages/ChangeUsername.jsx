@@ -7,7 +7,7 @@ const ChangeUsername = () => {
 
     const [username, setUsername] = useState('')
 
-    const [ loading, error, change_username ] = useChangeUsername()
+    const { loading, error, change_username } = useChangeUsername()
 
     const UserData = useAuth((state) => state.UserData)
 

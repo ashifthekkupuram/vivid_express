@@ -10,7 +10,7 @@ const Register = () => {
     const [secondName, setSecondName] = useState('')
     const [password, setPassword] = useState('')
 
-    const [loading, error, register] = useRegister()
+    const { loading, error, register } = useRegister()
 
     const navigate = useNavigate()
 

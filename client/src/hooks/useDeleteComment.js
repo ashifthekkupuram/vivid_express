@@ -4,23 +4,23 @@ import toast from 'react-hot-toast'
 import api from '../api/axios'
 
 const useDeleteComment = () => {
-  
+
     const [loading, setLoading] = useState(false)
 
     const delete_comment = async (commentId) => {
         setLoading(true)
-        try{
+        try {
             const response = await api.delete(`/comment/${commentId}`)
             toast.success(response.data.message)
             return 'success'
-        } catch(err) {
+        } catch (err) {
             toast.error(err?.response?.data?.message || 'Internal Server Error')
         } finally {
             setLoading(false)
         }
     }
 
-    return [ loading, delete_comment ]
+    return { loading, delete_comment }
 }
 
 export default useDeleteComment

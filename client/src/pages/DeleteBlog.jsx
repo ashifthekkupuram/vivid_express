@@ -13,7 +13,7 @@ const DeleteBlog = () => {
     const { blogId } = useParams()
 
     const UserData = useAuth((state) => state.UserData)
-    const [loading, delete_blog] = useDeleteBlog()
+    const { loading, delete_blog } = useDeleteBlog()
 
     const navigate = useNavigate()
 

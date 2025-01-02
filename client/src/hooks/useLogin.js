@@ -6,7 +6,7 @@ import useAuth from '../state/useAuth'
 import api from '../api/axios'
 
 const useLogin = () => {
-  
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -17,13 +17,13 @@ const useLogin = () => {
     const login = async (email, password) => {
         setLoading(true)
         setError(null)
-        try{
+        try {
             const response = await api.post('/auth/login', { email, password })
             navigate('/')
             setAuth(response.data)
             toast.success(response.data.message)
             setError(null)
-        } catch(err) {
+        } catch (err) {
             setError(err.response?.data?.message || 'Internal Server Error')
             setAuth()
         } finally {
@@ -31,7 +31,7 @@ const useLogin = () => {
         }
     }
 
-    return [ loading, error, login ]
+    return { loading, error, login }
 }
 
 export default useLogin

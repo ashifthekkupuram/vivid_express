@@ -8,7 +8,7 @@ const ChangeName = () => {
   const [firstName, setFirstName] = useState('')
   const [secondName, setSecondName] = useState('')
 
-  const [loading, error, change_name] = useChangeName()
+  const {loading, error, change_name} = useChangeName()
 
   const UserData = useAuth((state) => state.UserData)
 

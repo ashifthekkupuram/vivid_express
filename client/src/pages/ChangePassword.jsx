@@ -8,7 +8,7 @@ const ChangeName = () => {
   const [newPassword, setNewPassword] = useState('')
   const [confirmNewPassword, setConfirmNewPassword] = useState('')
 
-  const [loading, error, change_password] = useChangePassword()
+  const {loading, error, change_password} = useChangePassword()
 
   const onSubmit = (e) => {
     e.preventDefault()

@@ -23,7 +23,7 @@ const useDeleteBlog = () => {
         }
     }
 
-    return [ loading, delete_blog ]
+    return { loading, delete_blog }
 }
 
 export default useDeleteBlog
