@@ -80,7 +80,7 @@ const ViewBlog = () => {
 
     return (
         <>
-            <div className='flex flex-col gap-2 p-2 md:px-32 w-full h-full bg-secondary-variant'>
+            <div className='flex flex-col gap-2 p-2 md:px-32 w-full min-h-full bg-secondary-variant'>
                 <div className='flex flex-col justify-start items-start p-4 bg-white rounded-2xl gap-2'>
                     <div className='flex flex-row justify-center items-center gap-3 hover:cursor-pointer' onClick={onViewUser}>
                         <img className='w-10 h-10 rounded-full' src={blog?.author?.profile ? `${import.meta.env.VITE_PROFILE_URL}/${blog?.author?.profile}` : Avatar} alt="" />

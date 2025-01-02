@@ -34,7 +34,7 @@ const UserPage = () => {
             <div className='flex flex-col md:flex-row justify-start items-center gap-4 p-2 bg-white rounded-2xl py-3 px-4 md:px-12'>
                 {/* Profile Section */}
                 <div className='flex items-center gap-4'>
-                    <img className='h-32 w-32 rounded-full border-2 border-primary' src={user.profile ? `${import.meta.env.VITE_PROFILE_URL}/${user.profile}` : Avatar } alt="" />
+                    <img className='h-32 w-32 rounded-full border-2 border-primary' src={user?.profile ? `${import.meta.env.VITE_PROFILE_URL}/${user?.profile}` : Avatar } alt="" />
                 </div>
                 <div className='flex flex-col justify-center items-center '>
                     <h1 className='text-2xl capitalize font-semibold text-black  '>{user?.name?.firstName} {user?.name?.secondName}</h1>
