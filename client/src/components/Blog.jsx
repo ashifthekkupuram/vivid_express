@@ -43,10 +43,10 @@ const Blog = ({ blog }) => {
         <img className='w-10 h-10 rounded-full' src={blog.author.profile ?  `${import.meta.env.VITE_PROFILE_URL}/${blog.author.profile}` : Avatar} alt="" />
         <h1 className='text-lg capitalize text-[#808080] '>{blog.author.name.firstName} {blog.author.name.secondName}</h1>
       </div>
-      <h1 className='text-4xl font-normal capitalize mb-2 text-wrap overflow-hidden hover:cursor-pointer' onClick={onViewBlog}>
+      <h1 className='text-2xl font-normal capitalize mb-2 text-wrap overflow-hidden md:text-4xl hover:cursor-pointer' onClick={onViewBlog}>
         {blog.title}
       </h1>
-      <div className='font-extralight normal-case text-[#808080] overflow-hidden break-words line-clamp-2 mb-3 md:line-clamp-4 hover:cursor-pointer' onClick={onViewBlog}>
+      <div className='text-sm font-extralight normal-case text-[#808080] overflow-hidden break-words line-clamp-2 mb-3 md:text-base md:line-clamp-4 hover:cursor-pointer' onClick={onViewBlog}>
 
         {removeHTMLTags(blog.content)}...
       </div>
