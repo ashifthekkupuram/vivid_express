@@ -15,6 +15,8 @@ import Profile from './pages/Profile'
 import ChangeUsername from './pages/ChangeUsername'
 import ChangeName from './pages/ChangeName'
 import ChangePassword from './pages/ChangePassword'
+import ResetPassword from './pages/ResetPassword'
+import ConfirmResetPassword from './pages/ConfirmResetPassword'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
 
@@ -50,6 +52,14 @@ function App() {
             path: '/register',
             element: <Register />
           },
+          {
+            path: '/reset-password',
+            element: <ResetPassword />
+          },
+          {
+            path: '/confirm-reset-password/:token',
+            element: <ConfirmResetPassword />
+          }
         ]
       },
       {
