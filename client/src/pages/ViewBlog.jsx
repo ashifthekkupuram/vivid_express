@@ -91,7 +91,7 @@ const ViewBlog = () => {
                         <img className='w-10 h-10 rounded-full' src={blog?.author?.profile ? `${import.meta.env.VITE_PROFILE_URL}/${blog?.author?.profile}` : Avatar} alt="" />
                         <h1 className='text-lg capitalize text-[#808080] '>{blog && blog.author.name.firstName} {blog && blog.author.name.secondName}</h1>
                     </div>
-                    <h1 className='text-4xl font-normal capitalize mb-2 text-wrap overflow-hidden'>
+                    <h1 className='text-2xl md:text-4xl font-normal capitalize mb-2 text-wrap overflow-hidden'>
                         {blog && blog.title}
                     </h1>
                     <div className='flex  fle-row gap-2 mb-2'>
@@ -100,10 +100,10 @@ const ViewBlog = () => {
                     <div className='text-xs text-[#808080] mb-3'>
                         {blog && `created at ${format(blog.createdAt, 'LLLL do, y')}`}
                     </div>
-                    <div className='flex flex-row items-center gap-1'>
+                    {token && <div className='flex flex-row items-center gap-1'>
                         {blog?.likes.some((val) => val === UserData._id) ? <AiFillLike className='text-xl hover:cursor-pointer' onClick={!likeLoading && onLikeBlog} /> : <AiOutlineLike className='text-xl hover:cursor-pointer' onClick={!likeLoading && onLikeBlog} />}
                         <div className='text-lg'>{blog?.likes.length}</div>
-                    </div>
+                    </div>}
                 </div>
                 <div className='h-full p-4 bg-white rounded-2xl overflow-auto'>
                     {blog && <HtmlConverter content={blog.content} />}
@@ -112,7 +112,7 @@ const ViewBlog = () => {
                     {token && <textarea value={comment} className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' type="text" placeholder='Comment something...' onChange={(e) => setComment(e.target.value)} />}
                     <div className='flex flex-row gap-2'>
                         {token && <button disabled={disabled} className='primary-btn' onClick={editComment.edit ? onEditComment : onAddComment}>{editComment.edit ? 'Edit Comment' : 'Add Comment'}</button>}
-                        { editComment.edit && <button className='primary-btn !bg-error' onClick={onCancelEdit}>Cancel</button> }
+                        {editComment.edit && <button className='primary-btn !bg-error' onClick={onCancelEdit}>Cancel</button>}
                         <button className='primary-btn' onClick={() => setShowComments({ show: true, blogId: blog._id })}>View Comments</button>
                     </div>
                 </div>
