@@ -67,6 +67,11 @@ const ViewBlog = () => {
         }
     }
 
+    const onCancelEdit = () => {
+        setEditComment({ edit: false, commentId: '' })
+        setComment('')
+    }
+
     const onLikeBlog = () => {
         like_blog(blogId)
         queryClient.refetchQueries({ queryKey: ['blog', blog._id], type: 'active' })
@@ -106,7 +111,8 @@ const ViewBlog = () => {
                 <div className='flex flex-col justify-start items-start p-2 bg-white rounded-2xl gap-2'>
                     {token && <textarea value={comment} className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' type="text" placeholder='Comment something...' onChange={(e) => setComment(e.target.value)} />}
                     <div className='flex flex-row gap-2'>
-                        {token && <button disabled={disabled} className='primary-btn bg' onClick={editComment.edit ? onEditComment : onAddComment}>{editComment.edit ? 'Edit Comment' : 'Add Comment'}</button>}
+                        {token && <button disabled={disabled} className='primary-btn' onClick={editComment.edit ? onEditComment : onAddComment}>{editComment.edit ? 'Edit Comment' : 'Add Comment'}</button>}
+                        { editComment.edit && <button className='primary-btn !bg-error' onClick={onCancelEdit}>Cancel</button> }
                         <button className='primary-btn' onClick={() => setShowComments({ show: true, blogId: blog._id })}>View Comments</button>
                     </div>
                 </div>

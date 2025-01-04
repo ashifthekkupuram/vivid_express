@@ -1,5 +1,6 @@
-import React from 'react'
-import { useQuery } from '@tanstack/react-query'
+import React, { useEffect } from 'react'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useInView } from 'react-intersection-observer'
 
 import useBlogFilter from '../state/useBlogFilter'
 import Category from '../components/Category'
@@ -7,6 +8,7 @@ import Blog from '../components/Blog'
 import Spinner from '../components/Spinner'
 
 import api from '../api/axios'
+import { data } from 'react-router-dom'
 
 const Home = () => {
 
@@ -14,22 +16,30 @@ const Home = () => {
   const search = useBlogFilter((state) => state.search)
   const setSearch = useBlogFilter((state) => state.setSearch)
 
+  const { ref, inView } = useInView()
+
   const { data: categories } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
       const response = await api.get('/category',)
       return response.data.categories
-    }
+    },
   })
 
-  const { data: blogs, isLoading } = useQuery({
+  const { data: blogs, status, error, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['blogs', search, selectedCategories],
-    queryFn: async () => {
-      const response = await api.get('/blog', { params: { search: search.trim(), categories: selectedCategories } })
-      setTimeout(() => {}, 5000)
-      return response.data.blogs
-    }
+    queryFn: async ({ pageParam = 1 }) => {
+      const response = await api.get('/blog', { params: { search: search.trim(), categories: selectedCategories, page: pageParam } })
+      return response.data
+    },
+    getNextPageParam: (lastPage, pages) =>
+      lastPage.hasNextPage ? pages.length + 1 : undefined,
+
   })
+
+  useEffect(() => {
+    if (inView) fetchNextPage()
+  }, [fetchNextPage, inView])
 
   return (
     <div className='flex flex-col gap-2 p-2 md:px-32 w-full h-full bg-secondary-variant'>
@@ -43,7 +53,15 @@ const Home = () => {
       </div>
       {/* Blog Section */}
       <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-auto scroll-container'>
-        {isLoading ? <Spinner /> :  (blogs.length > 0 ? blogs.map((blog) => <Blog key={blog._id} blog={blog} />) : <div className='text-xl font-semibold text-[#808080] self-center justify-self-center'>No Blogs Found</div>) }
+        {status === 'loading' ? <Spinner /> : status === 'error' ? <div className='text-xl font-semibold text-error self-center justify-self-center'>{error.response.data.message || 'Internal Server Error'}</div> : blogs.pages.map((page) => {
+          return <>
+            {page.data.map((blog) => {
+              return <Blog key={blog._id} blog={blog} />
+            })}
+          </>
+        })}
+        <div ref={ref}></div>
+        {isFetchingNextPage && <Spinner />}
       </div>
     </div>
   )

@@ -5,7 +5,10 @@ import Blog from '../models/blog.model.js'
 export const get_blogs = async (req, res, next) => {
     try{
 
-        const { categories, search, userId } =  req.query
+        const { categories, search, userId, page = 1, limit = 5 } =  req.query
+
+        const pageNumber = parseInt(page, 10)
+        const pageSize = parseInt(limit, 10)
 
         const filterData = {}
 
@@ -25,12 +28,15 @@ export const get_blogs = async (req, res, next) => {
             filterData.author = userId
         }
 
-        const blogs = await Blog.find(filterData).populate('author', 'name username profile').populate('categories').sort('-createdAt')
+        const blogs = await Blog.find(filterData).populate('author', 'name username profile').populate('categories').sort('-createdAt').skip((pageNumber -1) * pageSize).limit(pageSize)
+
+        const totalBlogs = await Blog.countDocuments(filterData)
 
         return res.json({
             success: true,
             message: 'Blogs retrieved',
-            blogs
+            data: blogs,
+            hasNextPage: pageNumber * pageSize < totalBlogs
         })
 
     } catch(err) {

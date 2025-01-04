@@ -5,6 +5,10 @@ export const get_comments = async (req, res, next) => {
     try{
 
         const { blogId } = req.params
+        const { page = 1, limit = 10 } = req.query
+
+        const pageNumber = parseInt(page, 10)
+        const pageSize = parseInt(limit, 10)
 
         if(!blogId){
             return res.status(400).json({
@@ -22,18 +26,21 @@ export const get_comments = async (req, res, next) => {
             })
         }
 
-        const comments = await Comment.find({ blog }).populate('author', 'username name profile').populate('blog')
+        const comments = await Comment.find({ blog }).populate('author', 'username name profile').populate('blog').skip((pageNumber - 1) * pageSize).limit(pageSize)
+
+        const totalComments = await Comment.countDocuments({ blog })
 
         return res.json({
             success: true,
             message: 'Comment retrieved',
-            comments
+            data: comments,
+            hasNextPage: pageNumber * pageSize < totalComments
         })
 
     } catch(err) {
         return res.status(400).json({
             success: false,
-            message: 'Something went wrongg',
+            message: 'Something went wrong',
             error: err
         })
     }
