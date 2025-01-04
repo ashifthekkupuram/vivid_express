@@ -52,12 +52,12 @@ const UserPage = () => {
             </div>
             {/* Blog Section */}
             <div className='flex flex-col justify-start items-center gap-2 p-2 h-full bg-white rounded-2xl overflow-auto scroll-container'>
-                {status === 'loading' ? <Spinner /> : status === 'error' ? <div className='text-xl font-semibold text-error self-center justify-self-center'>{error.response.data.message || 'Internal Server Error'}</div> : blogs.pages.map((page) => {
-                    return <>
+                {status === 'loading' ? <Spinner /> : status === 'error' ? <div className='text-xl font-semibold text-error self-center justify-self-center'>{error.response.data.message || 'Internal Server Error'}</div> : blogs.pages.map((page, index) => {
+                    return <React.Fragment key={index}>
                         {page.data.map((blog) => {
                             return <Blog key={blog._id} blog={blog} />
                         })}
-                    </>
+                    </React.Fragment>
                 })}
                 {isFetchingNextPage && <Spinner />}
                 <div ref={ref}></div>

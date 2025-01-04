@@ -22,7 +22,8 @@ const ConfirmResetPassword = () => {
         queryFn: async () => {
             const response = await api.get(`/resetPassword/${token}`)
             return response.data
-        }
+        },
+        retry: 1
     })
 
     const disabled = loading || !password || !confirmPassword

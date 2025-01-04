@@ -37,10 +37,10 @@ const CommentsModel = ({ blogId, setShowComments, setEditComment, setComment }) 
                     <MdClose className='text-2xl rounded-full transition-all hover:bg-[#424242] hover:text-white hover:cursor-pointer' onClick={onClose} />
                 </div>
                 <div className="flex flex-col justify-start items-center gap-2 w-full">
-                    {status === 'loading' ? <Spinner /> : status === 'error' ? <div className='text-xl font-semibold text-error self-center justify-self-center'>{error.response.data.message || 'Internal Server Error'}</div> : comments.pages.map((page) =>
-                        <>
+                    {status === 'loading' ? <Spinner /> : status === 'error' ? <div className='text-xl font-semibold text-error self-center justify-self-center'>{error.response.data.message || 'Internal Server Error'}</div> : comments.pages.map((page, index) =>
+                        <React.Fragment key={index}>
                             { page.data.map((comment) => <Comment key={comment._id} comment={comment} setEditComment={setEditComment} setComment={setComment} setShowComments={setShowComments} /> ) }
-                        </>)}
+                        </React.Fragment>)}
                         <div ref={ref} ></div>
                 </div>
             </div>
