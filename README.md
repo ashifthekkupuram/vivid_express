@@ -5,8 +5,23 @@ Vivid Express is an engaging blog platform built with the MERN stack (MongoDB, E
 ## Technologies
 - MongoDB, Express.js, React.js, Node.js (MERN)
 - Axios
+- useQuery
 - Zustand
 - Redux
 - React Router Dom
 - React Hot Toast
 - CK Editor 4
+
+## Features
+Login <br />
+
+![image info](screenshots/login.png) <br />
+
+Register <br />
+
+![image info](screenshots/register.png) <br />
+
+Home. fetched blogs using useInfiniteQuery and react-intersection-observer useInView to make infinite pagination scrolling possible and also have search and category filter <br />
+
+![image info](screenshots/home.png) <br />
+![image info](screenshots/search-category-sort.png) <br />
