@@ -41,9 +41,11 @@ const CreateBlog = () => {
 
     const onChangeCategory = (e) => {
         const value = e.target.value
-        setSelectedCategories((prev) =>
-            prev.includes(value) ? prev.filter((id) => id !== value) : [...prev, value]
-        )
+        if(!(value === 'skip')){
+            setSelectedCategories((prev) =>
+                prev.includes(value) ? prev.filter((id) => id !== value) : [...prev, value]
+            )
+        }
     }
 
     const onRemoveSelectedCategory = (e) => {
@@ -65,6 +67,7 @@ const CreateBlog = () => {
                 </div>
                 <div className='mb-3 flex flex-row items-center gap-2 w-full overflow-auto scroll-container'>
                     <select className='shadow appearance-none border rounded p-1' name="categories" id="categories" onChange={onChangeCategory}>
+                        <option key={0} value={'skip'}>Select</option>
                         {categories && categories.map((cat) => <option key={cat._id} value={cat._id}>{cat.name}</option>)}
                     </select>
                     {selectedCategories && selectedCategories.map((seleCat) => {
