@@ -1,8 +1,6 @@
 import axios from 'axios'
 
 import useAuth from '../state/useAuth'
-import useRefresh from '../hooks/useRefresh'
-import useLogout from '../hooks/useLogout'
 
 const baseURL = import.meta.env.VITE_API_URL
 
@@ -14,7 +12,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
     async (config) => {
         const token = useAuth.getState().token || ''
-        if(token){
+        if (token) {
             config.headers.Authorization = `Bearer ${token}`
         }
         return config
@@ -24,20 +22,37 @@ instance.interceptors.request.use(
     }
 )
 
+const refreshToken = async () => {
+    const setAuth = useAuth.getState().setAuth
+    try {
+        const response = await axios.post(`${baseURL}/auth/refresh`, {},{ withCredentials: true })
+        setAuth(response.data)
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+}
+
+const performLogout = () => {
+    const logout = useAuth.getState().setAuth
+    logout()
+}
+
 instance.interceptors.response.use(
     async (response) => {
         return response
     },
-    (error) => {
-        // let alreadyRefreshed = false
-        // if(!alreadyRefreshed){
-        //     if(error.status === 403){
-        //         const [loading, refresh] = useRefresh()
-        //         refresh()
-        //         alreadyRefreshed = true
-        //         return instance.request(error.config)
-        //     }
-        // }
+    async (error) => {
+
+        if (error.response.status === 403) {
+            try {
+                await refreshToken()
+                return instance.request(error.config)
+            } catch (err) {
+                performLogout()
+            }
+        }
+
         return Promise.reject(error)
     }
 )

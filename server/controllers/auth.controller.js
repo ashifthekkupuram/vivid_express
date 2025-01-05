@@ -151,7 +151,7 @@ export const refresh = async (req, res, next) => {
         const cookies =  req.cookies
 
         if(!cookies?.jwt){
-            return json.status(401).json({
+            return res.status(401).json({
                 success: false,
                 message: 'Unauthorized'
             })
