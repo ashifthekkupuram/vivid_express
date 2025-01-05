@@ -23,5 +23,5 @@ Register <br />
 
 Home. fetched blogs using useInfiniteQuery and react-intersection-observer useInView to make infinite pagination scrolling possible and also have search and category filter <br />
 
-![image info](screenshots/home.png) <br />
+![image info](screenshots/home-blogs.png) <br />
 ![image info](screenshots/search-category-sort.png) <br />
