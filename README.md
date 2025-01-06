@@ -61,7 +61,7 @@ View user and thier blogs <br />
 
 user profile with change profile, name, username and password <br />
 
-![image info](screenshots/view-user.png) <br />
+![image info](screenshots/profile.png) <br />
 
 Reset Password <br />
 
