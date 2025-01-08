@@ -28,7 +28,6 @@ const refreshToken = async () => {
         const response = await axios.post(`${baseURL}/auth/refresh`, {},{ withCredentials: true })
         setAuth(response.data)
     } catch (err) {
-        console.log(err)
         throw err
     }
 }

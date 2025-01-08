@@ -8,7 +8,6 @@ import Blog from '../components/Blog'
 import Spinner from '../components/Spinner'
 
 import api from '../api/axios'
-import { data } from 'react-router-dom'
 
 const Home = () => {
 

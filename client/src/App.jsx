@@ -19,10 +19,13 @@ import ResetPassword from './pages/ResetPassword'
 import ConfirmResetPassword from './pages/ConfirmResetPassword'
 import AuthRedirect from './components/AuthRedirect'
 import AuthRequired from './components/AuthRequired'
+import { disableReactDevTools } from '@fvilers/disable-react-devtools'
 
 function App() {
 
   const queryClient = new QueryClient()
+
+  if(import.meta.env.VITE_NODE_ENV === 'production') disableReactDevTools()
 
   const router = createBrowserRouter([{
     path: '/',

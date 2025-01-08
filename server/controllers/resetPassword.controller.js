@@ -44,9 +44,6 @@ export const get_reset_password = async (req, res, next) => {
         })
 
     } catch(err) {
-
-        console.log(err)
-
         return res.status(400).json({
             success: false,
             message: 'Something went wrong',
@@ -99,9 +96,6 @@ export const post_reset_password = async (req, res, next) => {
         })
 
     } catch(err) {
-
-        console.log(err)
-
         return res.status(400).json({
             success: false,
             message: 'Something went wrong',
